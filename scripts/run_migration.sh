@@ -70,7 +70,7 @@ grep -v "^\s*$" /data/tables.txt | grep -v "^-\+$" | grep -v "TABLE_NAME" | grep
     fi
     
     # Check if table name contains invalid characters like parentheses, spaces, etc.
-    if [[ "$table" =~ [[:space:]\(\)\[\]\{\}\<\>\|\,\;\:\"\'\`\@\#\$\%\^\&\*\+\=\~\?] ]]; then
+    if [[ "$table" =~ [\(\)] || "$table" =~ "rows affected" ]]; then
         echo "Skipping invalid table name: $table"
         continue
     fi
@@ -95,7 +95,7 @@ done
 
 # Run Python script to convert to SQLite
 echo "Converting to SQLite..."
-python /app/convert_to_sqlite.py
+python /scripts/convert_to_sqlite.py
 
 echo "Done!"
 

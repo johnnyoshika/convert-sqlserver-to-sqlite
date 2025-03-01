@@ -25,9 +25,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy scripts
 COPY scripts/ /app/
+COPY scripts/ /scripts/
 
 # Make scripts executable
 RUN chmod +x /app/*.sh
+RUN chmod +x /scripts/*.sh
 
 # Run the migration script
 CMD ["/app/run_migration.sh"]
